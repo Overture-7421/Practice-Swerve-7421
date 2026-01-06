@@ -26,6 +26,14 @@ void RobotContainer::ConfigureBindings() {
   // pressed, cancelling on release.
 }
 
+void RobotContainer::ConfigDriverBindings() {
+    // Driver Controller Bindings
+    chassis.SetDefaultCommand(DriveCommand(&chassis, &driver).ToPtr());
+    driver.Back().OnTrue(ResetHeading(&chassis));
+
+    // Reset Heading
+}
+
 frc2::Command* RobotContainer::GetAutonomousCommand() {
 
 	return autoChooser.GetSelected();

@@ -10,6 +10,10 @@
 #include <pathplanner/lib/auto/NamedCommands.h>
 #include <pathplanner/lib/auto/AutoBuilder.h>
 #include <frc/smartdashboard/SmartDashboard.h>
+#include "OvertureLib/Gamepads/OverXboxController/OverXboxController.h"
+#include "Subsystems/Chassis/Chassis.h"
+#include "Commands/DriveCommand/DriveCommand.h"
+#include "Commands/ResetHeading/ResetHeading.h"
 
 #include "Constants.h"
 
@@ -27,13 +31,15 @@ class RobotContainer {
   frc2::Command* GetAutonomousCommand();
 
  private:
-  // Replace with CommandPS4Controller or CommandJoystick if needed
-  frc2::CommandXboxController m_driverController{
-      OperatorConstants::kDriverControllerPort};
+
+  OverXboxController driver{ 0, 0.05, 0.2 };
+  OverXboxController test{ 3, 0.20, 0.2 };
 
   // The robot's subsystems are defined here...
 	frc::SendableChooser<frc2::Command*> autoChooser;
 
-
   void ConfigureBindings();
+  void ConfigDriverBindings();
+
+  Chassis chassis;
 };
