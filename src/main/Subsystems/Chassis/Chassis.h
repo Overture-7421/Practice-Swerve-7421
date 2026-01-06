@@ -25,7 +25,7 @@
         frc::SwerveDriveKinematics<4>& getKinematics() override;
 
     private:
-        OverPigeon pigeon {13, "OverCANivore"};
+        OverPigeon pigeon {13, "rio"};
 
         // Module configurations
         static SwerveModuleConfig FrontLeftConfig();
