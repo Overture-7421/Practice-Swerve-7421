@@ -14,6 +14,7 @@
 #include "Subsystems/Chassis/Chassis.h"
 #include "Commands/DriveCommand/DriveCommand.h"
 #include "Commands/ResetHeading/ResetHeading.h"
+#include "Subsystems/Intake/Intake.h"
 
 #include "Constants.h"
 
@@ -35,11 +36,11 @@ class RobotContainer {
   OverXboxController driver{ 0, 0.05, 0.2 };
   OverXboxController test{ 3, 0.20, 0.2 };
 
-  // The robot's subsystems are defined here...
-	frc::SendableChooser<frc2::Command*> autoChooser;
-
   void ConfigureBindings();
   void ConfigDriverBindings();
 
   Chassis chassis;
+  Intake intake;
+  
+	frc::SendableChooser<frc2::Command*> autoChooser;
 };

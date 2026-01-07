@@ -7,32 +7,32 @@
 #include <frc2/command/button/Trigger.h>
 
 RobotContainer::RobotContainer() {
-  // Initialize all of your commands and subsystems here
-
-  // Configure the button bindings
   autoChooser = pathplanner::AutoBuilder::buildAutoChooser();
 	frc::SmartDashboard::PutData("AutoChooser", &autoChooser);
 
   ConfigureBindings();
-
 }
 
 void RobotContainer::ConfigureBindings() {
-  // Configure your trigger bindings here
-
-  // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-
-  // Schedule `ExampleMethodCommand` when the Xbox controller's B button is
-  // pressed, cancelling on release.
   ConfigDriverBindings();
 }
 
 void RobotContainer::ConfigDriverBindings() {
-    // Driver Controller Bindings
     chassis.SetDefaultCommand(DriveCommand(&chassis, &driver).ToPtr());
     driver.Back().OnTrue(ResetHeading(&chassis));
 
-    // Reset Heading
+    driver.LeftTrigger().WhileTrue(intake.setIntakeCommand(IntakeConstants::Intake));
+    driver.LeftTrigger().OnFalse(frc2::cmd::Sequence(
+      intake.setIntakeCommand(IntakeConstants::Through),
+      intake.setIntakeCommand(IntakeConstants::HoldPosition))
+    );
+
+    driver.RightTrigger().WhileTrue(intake.setIntakeCommand(IntakeConstants::L1Position));
+    driver.RightTrigger().OnFalse(intake.setIntakeCommand(IntakeConstants::HoldPosition));
+
+    driver.RightBumper().WhileTrue(intake.setIntakeCommand(IntakeConstants::L1Spit));
+    driver.RightBumper().OnFalse(intake.setIntakeCommand(IntakeConstants::HoldPosition));
+
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
