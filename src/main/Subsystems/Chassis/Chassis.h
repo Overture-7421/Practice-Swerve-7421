@@ -7,6 +7,7 @@
     #include "frc/DataLogManager.h"
     #include "wpi/DataLog.h"
     #include "OvertureLib/Subsystems/Swerve/SpeedsHelper/HeadingSpeedsHelper/HeadingSpeedsHelper.h"
+    #include "Constants.h"
 
     class Chassis: public SwerveChassis {
     public:
@@ -25,7 +26,7 @@
         frc::SwerveDriveKinematics<4>& getKinematics() override;
 
     private:
-        OverPigeon pigeon {13, "rio"};
+        OverPigeon pigeon {13, robotConstants::rio};
 
         // Module configurations
         static SwerveModuleConfig FrontLeftConfig();

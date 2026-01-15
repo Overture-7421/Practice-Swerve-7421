@@ -4,6 +4,7 @@
 #include "OvertureLib/Sensors/OverPigeon/OverPigeon.h"
 #include <units/angular_acceleration.h>
 #include <frc/RobotController.h>
+#include "Constants.h"
 
 // Initialize static members
 
@@ -59,7 +60,7 @@ SwerveModuleConfig Chassis::FrontLeftConfig() {
     config.DriveMotorConfig.MotorId = 2;
     config.TurnMotorConfig.MotorId = 1;
     config.EncoderConfig.CanCoderId = 9;
-    config.CanBus = "rio";
+    config.CanBus = robotConstants::rio;
     config.DriveGearRatio = 5.9027777;
     config.TurnGearRatio = 150.0 / 7.0;
     config.WheelDiameter = 4_in;
@@ -79,7 +80,7 @@ SwerveModuleConfig Chassis::FrontRightConfig() {
     config.DriveMotorConfig.MotorId = 4;
     config.TurnMotorConfig.MotorId = 3;
     config.EncoderConfig.CanCoderId = 12;
-    config.CanBus = "rio";
+    config.CanBus = robotConstants::rio;
     config.DriveGearRatio = 5.9027777;
     config.TurnGearRatio = 150.0 / 7.0;
     config.WheelDiameter = 4_in;
@@ -100,7 +101,7 @@ SwerveModuleConfig Chassis::BackLeftConfig() {
     config.DriveMotorConfig.MotorId = 6;
     config.TurnMotorConfig.MotorId = 5;
     config.EncoderConfig.CanCoderId = 10;
-    config.CanBus = "rio";
+    config.CanBus = robotConstants::rio;
     config.DriveGearRatio = 5.9027777;
     config.TurnGearRatio = 150.0 / 7.0;\
     config.WheelDiameter = 4_in;
@@ -120,7 +121,7 @@ SwerveModuleConfig Chassis::BackRightConfig() {
     config.DriveMotorConfig.MotorId = 8;
     config.TurnMotorConfig.MotorId = 7;
     config.EncoderConfig.CanCoderId = 11;
-    config.CanBus = "rio";
+    config.CanBus = robotConstants::rio;
     config.DriveGearRatio = 5.9027777;
     config.TurnGearRatio = 150.0 / 7.0;
     config.WheelDiameter = 4_in;

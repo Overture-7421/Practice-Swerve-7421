@@ -1,8 +1,7 @@
 plugins {
     id "cpp"
     id "google-test-test-suite"
-    // id "com.diffplug.spotless" version "7.0.2"
-    id "edu.wpi.first.GradleRIO" version "2025.3.2"
+    id "edu.wpi.first.GradleRIO" version "2026.1.1"
 }
 
 // Define my targets (RoboRIO) and artifacts (deployable files)
@@ -29,21 +28,17 @@ deploy {
                     files = project.fileTree('src/main/deploy')
                     directory = '/home/lvuser/deploy'
                     deleteOldFiles = false // Change to true to delete files on roboRIO that no
-                    // longer exist in deploy directory of this project
+                                           // longer exist in deploy directory of this project
                 }
             }
         }
     }
 }
 
-repositories {
-    mavenLocal()
-}
-
 def deployArtifact = deploy.targets.roborio.artifacts.frcCpp
 
 // Set this to true to enable desktop support.
-def includeDesktopSupport = true
+def includeDesktopSupport = false
 
 // Set to true to run simulation in debug mode
 wpi.cpp.debugSimulation = false
@@ -59,10 +54,6 @@ model {
             targetPlatform wpi.platforms.roborio
             if (includeDesktopSupport) {
                 targetPlatform wpi.platforms.desktop
-            }
-
-            binaries.all {
-                cppCompiler.define('_USE_MATH_DEFINES')
             }
 
             sources.cpp {
@@ -88,34 +79,23 @@ model {
             wpi.cpp.deps.wpilib(it)
         }
     }
-}
+    testSuites {
+        frcUserProgramTest(GoogleTestTestSuiteSpec) {
+            testing $.components.frcUserProgram
 
-// spotless {
-//     cpp {
-//         target fileTree('.') {
-//             include '**/*.cpp', '**/*.h'
-//             exclude '**/build/**', '**/build-*/**'
-//         }
-//         eclipseCdt().configFile('eclipse-cdt-config.xml')
-//         toggleOffOn()
-//     }
-//     groovyGradle {
-//         target fileTree('.') {
-//             include '**/*.gradle'
-//             exclude '**/build/**', '**/build-*/**'
-//         }
-//         greclipse()
-//         leadingTabsToSpaces(4)
-//         trimTrailingWhitespace()
-//         endWithNewline()
-//     }
-//     format 'misc', {
-//         target fileTree('.') {
-//             include '**/*.md', '**/.gitignore'
-//             exclude '**/build/**', '**/build-*/**'
-//         }
-//         trimTrailingWhitespace()
-//         leadingTabsToSpaces(4)
-//         endWithNewline()
-//     }
-// }
+            sources.cpp {
+                source {
+                    srcDir 'src/test/cpp'
+                    include '**/*.cpp'
+                }
+            }
+
+            // Enable run tasks for this component 
+            wpi.cpp.enableExternalTasks(it)
+
+            wpi.cpp.vendor.cpp(it)
+            wpi.cpp.deps.wpilib(it)
+            wpi.cpp.deps.googleTest(it)
+        }
+    }
+}

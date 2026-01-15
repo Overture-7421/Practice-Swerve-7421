@@ -11,6 +11,7 @@
 #include <frc2/command/FunctionalCommand.h>
 #include <ctre/phoenix6/CANrange.hpp>
 #include "Subsystems/Intake/IntakeConstants.h"
+#include "Constants.h"
 
 class Intake: public frc2::SubsystemBase {
 public:
@@ -28,14 +29,14 @@ public:
 
 private:
 
-    OverTalonFX intakeMotor {IntakeConstants::IntakeConfig(), "rio"};
-    OverCANCoder intakeCANCoder {IntakeConstants::IntakeCANConfig(), "rio"};
+    OverTalonFX intakeMotor {IntakeConstants::IntakeConfig(), robotConstants::rio};
+    OverCANCoder intakeCANCoder {IntakeConstants::IntakeCANConfig(), robotConstants::rio};
 
-    OverTalonFX rollersMotor {IntakeConstants::RollersConfig(), "rio"};
-    OverTalonFX centeringMotor {IntakeConstants::CenteringConfig(), "rio"};
+    OverTalonFX rollersMotor {IntakeConstants::RollersConfig(), robotConstants::rio};
+    OverTalonFX centeringMotor {IntakeConstants::CenteringConfig(), robotConstants::rio};
 
-    MotionMagicVoltage intakeVoltage {0_tr};
-    VoltageOut rollersVoltage {0_V};
-    VoltageOut centeringVoltage {0_V};
+    ctre::phoenix6::controls::MotionMagicVoltage intakeVoltage {0_tr};
+    ctre::phoenix6::controls::VoltageOut rollersVoltage {0_V};
+    ctre::phoenix6::controls::VoltageOut centeringVoltage {0_V};
 
 };
